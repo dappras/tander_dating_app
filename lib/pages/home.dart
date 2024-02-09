@@ -1,4 +1,5 @@
 import 'package:dating_app_clone/components/template.dart';
+import 'package:dating_app_clone/controller/home_controller.dart';
 import 'package:dating_app_clone/routes/route_name.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,6 +9,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var homeCont = Get.put(HomeController());
     var selectedIndex = 1;
 
     onItemTapped(var index) {
@@ -36,67 +38,80 @@ class HomePage extends StatelessWidget {
               children: [
                 Stack(
                   children: [
-                    Container(
-                      decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(40))),
-                      height: MediaQuery.of(context).size.height * 0.7,
-                      width: MediaQuery.of(context).size.width * 1,
-                      child: ClipRRect(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(40)),
-                        child: Image.asset(
-                          'assets/images/sample_image.jpg',
-                          fit: BoxFit.cover,
+                    Obx(
+                      () => Container(
+                        decoration: const BoxDecoration(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(40))),
+                        height: MediaQuery.of(context).size.height * 0.7,
+                        width: MediaQuery.of(context).size.width * 1,
+                        child: ClipRRect(
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(40)),
+                          child: homeCont.listUser.isNotEmpty
+                              ? Image.network(
+                                  homeCont.listUser.isNotEmpty
+                                      ? "${homeCont.listUser[0]['picture']['large']}"
+                                      : "",
+                                  fit: BoxFit.cover,
+                                )
+                              : Container(),
                         ),
                       ),
                     ),
-                    Positioned(
-                      bottom: MediaQuery.of(context).size.height * 0.04,
-                      left: MediaQuery.of(context).size.width * 0.06,
-                      right: MediaQuery.of(context).size.width * 0.06,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.7),
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(20)),
-                        ),
-                        padding: const EdgeInsets.all(18),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              "Daffa Rasyid Naufan, 22",
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w800,
+                    Obx(
+                      () => Positioned(
+                        bottom: MediaQuery.of(context).size.height * 0.04,
+                        left: MediaQuery.of(context).size.width * 0.06,
+                        right: MediaQuery.of(context).size.width * 0.06,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.7),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(20)),
+                          ),
+                          padding: const EdgeInsets.all(18),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                homeCont.listUser.isNotEmpty
+                                    ? "${homeCont.listUser[0]['name']['first']} ${homeCont.listUser[0]['name']['last']}, ${homeCont.listUser[0]['dob']['age']}"
+                                    : "",
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w800,
+                                ),
                               ),
-                            ),
-                            Container(
-                              margin: const EdgeInsets.only(top: 4),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    padding: const EdgeInsets.only(right: 4),
-                                    child: const Icon(
-                                      Icons.location_pin,
-                                      color: Color(ColorWay.primary),
-                                      size: 12,
+                              Container(
+                                margin: const EdgeInsets.only(top: 4),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      padding: const EdgeInsets.only(right: 4),
+                                      child: const Icon(
+                                        Icons.location_pin,
+                                        color: Color(ColorWay.primary),
+                                        size: 12,
+                                      ),
                                     ),
-                                  ),
-                                  const Text(
-                                    "Jakarta, Indonesia",
-                                    style: TextStyle(
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.bold,
+                                    Text(
+                                      homeCont.listUser.isNotEmpty
+                                          ? "${homeCont.listUser[0]['location']['country']}, ${homeCont.listUser[0]['location']['city']}"
+                                          : "",
+                                      style: const TextStyle(
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            )
-                          ],
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     )
@@ -111,48 +126,60 @@ class HomePage extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Container(
-                        padding: const EdgeInsets.all(14),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(1000)),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey
-                                  .withOpacity(0.3), // warna bayangan
-                              spreadRadius: 5, // radius bayangan yang menyebar
-                              blurRadius: 7, // radius blur bayangan
-                              offset: const Offset(0, 3), // offset bayangan
-                            ),
-                          ],
-                        ),
-                        child: const Icon(
-                          Icons.close,
-                          color: Color(ColorWay.primary),
-                          size: 40,
+                      InkWell(
+                        onTap: () {
+                          homeCont.eventDislike();
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.all(14),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(1000)),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey
+                                    .withOpacity(0.3), // warna bayangan
+                                spreadRadius:
+                                    5, // radius bayangan yang menyebar
+                                blurRadius: 7, // radius blur bayangan
+                                offset: const Offset(0, 3), // offset bayangan
+                              ),
+                            ],
+                          ),
+                          child: const Icon(
+                            Icons.close,
+                            color: Color(ColorWay.primary),
+                            size: 40,
+                          ),
                         ),
                       ),
-                      Container(
-                        padding: const EdgeInsets.all(14),
-                        decoration: BoxDecoration(
-                          color: const Color(ColorWay.primary),
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(1000)),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey
-                                  .withOpacity(0.3), // warna bayangan
-                              spreadRadius: 5, // radius bayangan yang menyebar
-                              blurRadius: 7, // radius blur bayangan
-                              offset: const Offset(0, 3), // offset bayangan
-                            ),
-                          ],
-                        ),
-                        child: const Icon(
-                          Icons.favorite,
-                          color: Colors.white,
-                          size: 40,
+                      InkWell(
+                        onTap: () {
+                          homeCont.eventLike();
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.all(14),
+                          decoration: BoxDecoration(
+                            color: const Color(ColorWay.primary),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(1000)),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey
+                                    .withOpacity(0.3), // warna bayangan
+                                spreadRadius:
+                                    5, // radius bayangan yang menyebar
+                                blurRadius: 7, // radius blur bayangan
+                                offset: const Offset(0, 3), // offset bayangan
+                              ),
+                            ],
+                          ),
+                          child: const Icon(
+                            Icons.favorite,
+                            color: Colors.white,
+                            size: 40,
+                          ),
                         ),
                       ),
                     ],
