@@ -1,5 +1,5 @@
 import 'dart:developer';
-import 'package:dating_app_clone/components/http_services.dart';
+import 'package:dating_app_clone/services/http_services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 

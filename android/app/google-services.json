@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "996048124214",
+    "project_id": "tander-dating",
+    "storage_bucket": "tander-dating.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:996048124214:android:835bd9b509bdc2baeb9b97",
+        "android_client_info": {
+          "package_name": "com.example.dating_app_clone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "996048124214-ll52mhh3hf9d3dbft6f1tv1j9jgvell1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwwcepPZ19J2u4Wg0XbMGOvZrt8sn3v90"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "996048124214-ll52mhh3hf9d3dbft6f1tv1j9jgvell1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

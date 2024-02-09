@@ -1,5 +1,6 @@
 import 'package:dating_app_clone/components/template.dart';
 import 'package:dating_app_clone/routes/route_name.dart';
+import 'package:dating_app_clone/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -109,9 +110,7 @@ class FormSection extends StatelessWidget {
           ),
         ),
         InkWell(
-          onTap: () {
-            Get.offAllNamed(RouteName.homePage);
-          },
+          onTap: () {},
           child: Container(
             margin:
                 EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.05),
@@ -145,7 +144,10 @@ class FormSection extends StatelessWidget {
           ),
         ),
         InkWell(
-          onTap: () {},
+          onTap: () async {
+            await AuthService().signInWithGoogle();
+            Get.offAllNamed(RouteName.homePage);
+          },
           child: Container(
             padding: const EdgeInsets.symmetric(vertical: 19),
             width: MediaQuery.of(context).size.width * 1,
