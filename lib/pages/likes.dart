@@ -25,6 +25,13 @@ class LikesPage extends StatelessWidget {
     }
 
     return Scaffold(
+        appBar: AppBar(
+          title: const Text(
+            "Likes",
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          centerTitle: true,
+        ),
         body: SafeArea(
           child: Container(
             padding: EdgeInsets.only(
@@ -32,9 +39,7 @@ class LikesPage extends StatelessWidget {
               left: MediaQuery.of(context).size.width * 0.07,
               right: MediaQuery.of(context).size.width * 0.07,
             ),
-            child: const Column(
-              children: [Text("ini Like")],
-            ),
+            child: body(context),
           ),
         ),
         bottomNavigationBar: BottomNavigationBar(
@@ -78,5 +83,93 @@ class LikesPage extends StatelessWidget {
             ),
           ),
         ));
+  }
+
+  Widget body(BuildContext context) {
+    return GridView.builder(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        // Atur jumlah item dalam satu baris
+        crossAxisCount: 2,
+        // Atur rasio antara lebar dan tinggi setiap item
+        childAspectRatio: 2 / 4,
+        // Atur jarak antara item di baris
+        crossAxisSpacing: 10,
+        // Atur jarak antara item di kolom
+        mainAxisSpacing: 10,
+      ),
+      itemCount: 8, // Jumlah total item dalam grid
+      itemBuilder: (BuildContext context, int index) {
+        return Stack(
+          children: [
+            Container(
+              decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(8))),
+              height: MediaQuery.of(context).size.height * 0.7,
+              width: MediaQuery.of(context).size.width * 1,
+              child: ClipRRect(
+                borderRadius: const BorderRadius.all(Radius.circular(8)),
+                child: Image.asset(
+                  'assets/images/sample_image.jpg',
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            Positioned(
+              bottom: MediaQuery.of(context).size.height * 0.02,
+              left: MediaQuery.of(context).size.width * 0.03,
+              right: MediaQuery.of(context).size.width * 0.03,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.7),
+                  borderRadius: const BorderRadius.all(Radius.circular(8)),
+                ),
+                padding: const EdgeInsets.all(18),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      "Daffa Rasyid Naufan, 22",
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 4),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.only(right: 4),
+                            child: const Icon(
+                              Icons.location_pin,
+                              color: Color(ColorWay.primary),
+                              size: 12,
+                            ),
+                          ),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.2,
+                            child: const Text(
+                              "Jakarta",
+                              softWrap: true,
+                              style: TextStyle(
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            )
+          ],
+        );
+      },
+    );
   }
 }
