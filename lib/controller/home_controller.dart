@@ -10,7 +10,6 @@ class HomeController extends GetxController {
 
   @override
   void onInit() {
-    print(storage.read('listUser') ?? []);
     getRandomUser();
     super.onInit();
   }
