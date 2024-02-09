@@ -1,6 +1,7 @@
 import 'package:dating_app_clone/firebase_options.dart';
 import 'package:dating_app_clone/pages/welcome.dart';
 import 'package:dating_app_clone/routes/page_route.dart';
+import 'package:dating_app_clone/routes/route_name.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: const WelcomePage(),
+      initialRoute: RouteName.splashScreenPage,
       getPages: AppRoute.pages,
     );
   }

@@ -83,7 +83,7 @@ class ProfilePage extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("Name"),
+                      const Text("Name"),
                       Text(
                         "${user.displayName}",
                         style: const TextStyle(
@@ -107,7 +107,7 @@ class ProfilePage extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("Email"),
+                      const Text("Email"),
                       Text(
                         "${user.email}",
                         style: const TextStyle(
